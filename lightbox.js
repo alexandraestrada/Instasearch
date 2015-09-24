@@ -71,7 +71,6 @@ WITH LIGHTBOX VIEW. USER HAS ABILITY TO SEE NEXT IMAGE FROM LIGHTBOX. */
 		if(gridDiv.hasChildNodes()) {
 			gridDiv.innerHTML = '';
 		}
-		griDiv.style.height = '0px';
 		for(i=0; i < hashtags.length; i++) {
 			var hashtagItem= hashtags[i];
 			//call subview to create individual image divs.
@@ -152,6 +151,6 @@ WITH LIGHTBOX VIEW. USER HAS ABILITY TO SEE NEXT IMAGE FROM LIGHTBOX. */
 			slide = '<div class="slide"><div class="userinfo"><a href="http://www.instagram.com/'+hashtagItem.username+'"><img class="profilepic" src="' + hashtagItem.profilepic +'"/><p class="username">'+hashtagItem.username+'</p></a></div><img src="'+ hashtagItem.img + '"/><p class="caption">'+ hashtagItem.caption +'</p></div>';
 			slideshow.className = 'slideshow';
 			slideshow.innerHTML += slide;	
-		return slideshow
+		return slideshow;
 
 	}
