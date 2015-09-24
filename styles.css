@@ -6,7 +6,7 @@ body {
 	margin:0;
 }
 .debug {
-	border:1px solid black;
+	border:1px solid red;
 }
 
 #hashLabel {
@@ -14,23 +14,18 @@ body {
 	font-family: 'Roboto', sans-serif;
 	padding:0;
 	color:#555;
-
-
 }
 #submitVal {
 	font-size: 1.2em;
 	font-family: 'Roboto', sans-serif;
 	color:#555;
-
 }
 .container {
 	width:900px;
 	margin: 0 auto;
-	
 }
 #searchContent  {
 	text-align: center;
-
 }
 #searchContent {
 	background-color: white;
@@ -87,7 +82,6 @@ body {
 	margin:0 auto;
 	margin-top:50px;
 	border-radius:5px;
-	/*overflow: hidden;*/
 	position: relative;
 	box-shadow:0 10px 30px #111;
 		    -webkit-box-shadow:0 10px 30px #111;
@@ -118,8 +112,6 @@ body {
 }
 #previous {
 	float:left;
-
-
 }
 #next {
 	float:right;
