@@ -177,6 +177,7 @@ body {
 	font-size:14px;
 	color:#333;
 	margin:0 auto;
+	overflow:hidden;
 }
 #previous {
 	padding-right: 20px;
