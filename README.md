@@ -15,11 +15,11 @@ lighbox view of image will also contain link to original post on instagram.com.
 
 ## Upcoming features:
 
-*Return more than the standard 20 results using IG's pagination object in their API.
-*Create slideshow animation within the lightbox & add slideshow navigation with left and right keyboard arrows.
-*Track the item that is being selected in the lightbox slideshow and have the grid view behind it move vertically as the user goes through the images.
-*Add responsive framework to create fluid experience for the user. 
-*have search results error also include special characters.
-*Test coverage.
+* Return more than the standard 20 results using IG's pagination object in their API.
+* Create slideshow animation within the lightbox & add slideshow navigation with left and right keyboard arrows.
+* Track the item that is being selected in the lightbox slideshow and have the grid view behind it move vertically as the user goes through the images.
+* Add responsive framework to create fluid experience for the user. 
+* have search results error also include special characters.
+* Test coverage.
 
 
