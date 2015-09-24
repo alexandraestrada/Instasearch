@@ -37,6 +37,14 @@ WITH LIGHTBOX VIEW. USER HAS ABILITY TO SEE NEXT IMAGE FROM LIGHTBOX. */
 //-----------jsonp callback function serving data and initiating MVC---------------------
 	
 	function callbackFunction(data) {
+		//check for valid data object
+		var errorMsg = document.getElementById('errorMsg');
+		if(data.data.length <= 0) {
+			errorMsg.innerHTML = 'Oops! Not a valid hashtag. Please try again.';	
+		}
+		else {
+			errorMsg.innerHTML = '';
+		}
 		//instantiate new hashtag collection and and new hashtag grid view passing callback data 
 		var	hashtags = new HashtagCollection(data),
 			gridview = new HashtagGridView(hashtags);
@@ -104,7 +112,7 @@ WITH LIGHTBOX VIEW. USER HAS ABILITY TO SEE NEXT IMAGE FROM LIGHTBOX. */
 
 			lightbox = document.createElement('div');
 			lightbox.id = 'lightbox';
-			lightbox.innerHTML = '<div id="arrows"><img id="previous" src="images/prev_arrow.png"/><img id="next" src="images/next_arrow.png"/></div><p id="close">X</p>';
+			lightbox.innerHTML = '<div id="arrows"><img id="previous" src="images/prev_arrow.png"/><img id="next" src="images/next_arrow.png"/></div><div id="closeContainer"><p id="close">X</p></div>';
 			document.body.appendChild(lightbox);
 			arrowDispalyCheck();
 			
@@ -148,7 +156,7 @@ WITH LIGHTBOX VIEW. USER HAS ABILITY TO SEE NEXT IMAGE FROM LIGHTBOX. */
 	//individual lightbox image view-- append new slide to lightbox.
 	var LightboxImgView = function(hashtagItem) {
 		var slideshow = document.createElement('div'),
-			slide = '<div class="slide"><div class="userinfo"><a href="http://www.instagram.com/'+hashtagItem.username+'"><img class="profilepic" src="' + hashtagItem.profilepic +'"/><p class="username">'+hashtagItem.username+'</p></a></div><img src="'+ hashtagItem.img + '"/><p class="caption">'+ hashtagItem.caption +'</p></div>';
+			slide = '<div class="slide"><div class="userinfo"><a href="http://www.instagram.com/'+hashtagItem.username+'"><img class="profilepic" src="' + hashtagItem.profilepic +'"/><p class="username">'+hashtagItem.username+'</p></a></div><img class="hashImg" src="'+ hashtagItem.img + '"/><p class="caption">'+ hashtagItem.caption +'</p></div>';
 			slideshow.className = 'slideshow';
 			slideshow.innerHTML += slide;	
 		return slideshow;
