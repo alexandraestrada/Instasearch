@@ -27,12 +27,14 @@ WITH LIGHTBOX VIEW. USER HAS ABILITY TO SEE NEXT IMAGE FROM LIGHTBOX. */
 	}
 
 	//---------Jsonp prototype function: create head script for api call -------
-	Jsonp.prototype.apiCall = function() {
+	Jsonp.prototype.apiCall = (function() {
+		var apiKey = 'ba9624f051464cb1a555717ff309d90b';
 		var script = document.createElement('script');
-		    script.src = this.url + this.hashtag + '/media/recent?client_id=ba9624f051464cb1a555717ff309d90b&callback=' + this.callback;
+		    script.src = this.url + this.hashtag + '/media/recent?client_id='+ apiKey+'&callback=' + this.callback;
 		    document.head.appendChild(script);
 		    document.head.removeChild(script);
-	};
+
+	});
 
 //-----------jsonp callback function serving data and initiating MVC---------------------
 	
@@ -108,39 +110,46 @@ WITH LIGHTBOX VIEW. USER HAS ABILITY TO SEE NEXT IMAGE FROM LIGHTBOX. */
 
 	//create Lightbox and content container for slide inside lightbox
 	var LightboxView = function(hashtagItem, hashtags) {
-		var currentPosition = hashtags[hashtagItem.index].index,
-
+		var currentPosition = hashtags.indexOf(hashtagItem),
+			//create lightbox div and set id					
 			lightbox = document.createElement('div');
 			lightbox.id = 'lightbox';
-			lightbox.innerHTML = '<div id="arrows"><img id="previous" src="images/prev_arrow.png"/><img id="next" src="images/next_arrow.png"/></div><div id="closeContainer"><p id="close">X</p></div>';
+			//add arrows and close to ligthbox container--append to body
+			lightbox.innerHTML = '<div id="arrows"><img id="previous" class="arrowImg" src="images/prev_arrow.png"/><img id="next" class="arrowImg" src="images/next_arrow.png"/></div><div id="closeContainer"><p id="close">X</p></div>';
 			document.body.appendChild(lightbox);
-			arrowDispalyCheck();
-			
+			//check Current positons to determine whether to show one or both 
+			arrowDisplayCheck();
+			//append current hashtag object into lightbox view:
+			//this could have been separated out to another function. 
+			console.log('currentposition', currentPosition);
+
 		var lightboxContainer = document.getElementById('lightbox'),
 			lightboxImg = new LightboxImgView(hashtagItem);
 			lightboxContainer.appendChild(lightboxImg);
 
 		//--------EVENT LISTENERS FOR LIGHTBOX--------------
 
+		// var arrows = document.getElementsByClassName('arrowImg');
+			
+
 		document.getElementById('previous').addEventListener('click', function() {
 			currentPosition--;
-			lightboxContainer.removeChild(lightboxImg);
-			lightboxImg = new LightboxImgView(hashtags[hashtagItem.index -= 1]);
-			lightboxContainer.appendChild(lightboxImg);
-			arrowDispalyCheck();
+			nextLightbox();
 		})
 		document.getElementById('next').addEventListener('click', function() {
 			currentPosition ++;
-			lightboxContainer.removeChild(lightboxImg);
-			lightboxImg = new LightboxImgView(hashtags[hashtagItem.index += 1]);
-			lightboxContainer.appendChild(lightboxImg);
-			arrowDispalyCheck();
-			
+			nextLightbox();
 		})
 		document.getElementById('close').addEventListener('click', function() {
 			document.body.removeChild(lightbox);
 		})
-		function arrowDispalyCheck() {
+		function nextLightbox() {
+			lightboxContainer.removeChild(lightboxImg);
+			lightboxImg = new LightboxImgView(hashtags[currentPosition]);
+			lightboxContainer.appendChild(lightboxImg);
+			arrowDisplayCheck();
+		}
+		function arrowDisplayCheck() {
 			if (currentPosition === 0) {
 			document.getElementById('previous').style.visibility = 'hidden';
 			}
