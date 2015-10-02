@@ -59,7 +59,6 @@ WITH LIGHTBOX VIEW. USER HAS ABILITY TO SEE NEXT IMAGE FROM LIGHTBOX. */
 		this.caption = JSON.caption.text;
 		this.username = JSON.user.username;
 		this.profilepic = JSON.user.profile_picture;
-		this.index = JSON.index;
 	}
 
 //-----------Hashtag Collection---------------------------
@@ -111,27 +110,16 @@ WITH LIGHTBOX VIEW. USER HAS ABILITY TO SEE NEXT IMAGE FROM LIGHTBOX. */
 	//create Lightbox and content container for slide inside lightbox
 	var LightboxView = function(hashtagItem, hashtags) {
 		var currentPosition = hashtags.indexOf(hashtagItem),
-			//create lightbox div and set id					
 			lightbox = document.createElement('div');
 			lightbox.id = 'lightbox';
-			//add arrows and close to ligthbox container--append to body
 			lightbox.innerHTML = '<div id="arrows"><img id="previous" class="arrowImg" src="images/prev_arrow.png"/><img id="next" class="arrowImg" src="images/next_arrow.png"/></div><div id="closeContainer"><p id="close">X</p></div>';
 			document.body.appendChild(lightbox);
-			//check Current positons to determine whether to show one or both 
 			arrowDisplayCheck();
-			//append current hashtag object into lightbox view:
-			//this could have been separated out to another function. 
-			console.log('currentposition', currentPosition);
-
 		var lightboxContainer = document.getElementById('lightbox'),
 			lightboxImg = new LightboxImgView(hashtagItem);
 			lightboxContainer.appendChild(lightboxImg);
-
-		//--------EVENT LISTENERS FOR LIGHTBOX--------------
-
-		// var arrows = document.getElementsByClassName('arrowImg');
-			
-
+		/*--------EVENT LISTENERS FOR LIGHTBOX--------------
+		----------Needs to be refactored and separated into new View */
 		document.getElementById('previous').addEventListener('click', function() {
 			currentPosition--;
 			nextLightbox();
@@ -143,12 +131,14 @@ WITH LIGHTBOX VIEW. USER HAS ABILITY TO SEE NEXT IMAGE FROM LIGHTBOX. */
 		document.getElementById('close').addEventListener('click', function() {
 			document.body.removeChild(lightbox);
 		})
+		//should be prototype function if using constructor pattern
 		function nextLightbox() {
 			lightboxContainer.removeChild(lightboxImg);
 			lightboxImg = new LightboxImgView(hashtags[currentPosition]);
 			lightboxContainer.appendChild(lightboxImg);
 			arrowDisplayCheck();
 		}
+		//should be prototype extension as well.....
 		function arrowDisplayCheck() {
 			if (currentPosition === 0) {
 			document.getElementById('previous').style.visibility = 'hidden';
@@ -162,6 +152,7 @@ WITH LIGHTBOX VIEW. USER HAS ABILITY TO SEE NEXT IMAGE FROM LIGHTBOX. */
 			}
 		}
 	}
+
 	//individual lightbox image view-- append new slide to lightbox.
 	var LightboxImgView = function(hashtagItem) {
 		var slideshow = document.createElement('div'),
